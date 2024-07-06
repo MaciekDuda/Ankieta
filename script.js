@@ -1,11 +1,35 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
+import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+
+// Konfiguracja Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyBo5Kuapd_UZGEmaAMNEpU8j4nSZt6AWoo",
+    authDomain: "voter-ab3e5.firebaseapp.com",
+    databaseURL: "https://voter-ab3e5-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "voter-ab3e5",
+    storageBucket: "voter-ab3e5.appspot.com",
+    messagingSenderId: "560473290820",
+    appId: "1:560473290820:web:ba6e9cdc3b731175b02411",
+    measurementId: "G-PFXHYM8XZM"
+};
+
+// Inicjalizacja Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth();
+
+// Logowanie anonimowe
+signInAnonymously(auth).catch((error) => {
+    console.error('Error during sign-in:', error);
+});
+
 let userName;
 
 window.onload = function() {
-    setTimeout(function() {
-        userName = prompt("Jak masz na imię?");
-        loadResults();
-        updateSummary();
-    }, 500);
+    userName = prompt("Jak masz na imię?");
+    loadResults();
+    updateSummary();
 };
 
 function updateOptions(changedId, otherId1, otherId2) {
@@ -68,20 +92,27 @@ function submitVotes() {
 }
 
 function saveResults(name, choice, points) {
-    let results = JSON.parse(localStorage.getItem('results')) || [];
-    results.push({name: name, choice: choice, points: points});
-    localStorage.setItem('results', JSON.stringify(results));
+    const resultsRef = ref(db, 'results');
+    push(resultsRef, {
+        name: name,
+        choice: choice,
+        points: points
+    });
 }
 
 function loadResults() {
     const resultsTable = document.getElementById('resultsTable');
-    let results = JSON.parse(localStorage.getItem('results')) || [];
+    const resultsRef = ref(db, 'results');
     
-    results.forEach(result => {
-        const newRow = resultsTable.insertRow();
-        newRow.insertCell(0).textContent = result.name;
-        newRow.insertCell(1).textContent = result.choice;
-        newRow.insertCell(2).textContent = result.points;
+    onValue(resultsRef, (snapshot) => {
+        resultsTable.innerHTML = ''; // Clear the table before adding rows
+        snapshot.forEach((childSnapshot) => {
+            const result = childSnapshot.val();
+            const newRow = resultsTable.insertRow();
+            newRow.insertCell(0).textContent = result.name;
+            newRow.insertCell(1).textContent = result.choice;
+            newRow.insertCell(2).textContent = result.points;
+        });
     });
 }
 
@@ -94,32 +125,41 @@ function updateSummary() {
         </tr>
     `;
 
-    let results = JSON.parse(localStorage.getItem('results')) || [];
-    let summary = {
+    const resultsRef = ref(db, 'results');
+    const summary = {
         'Mazury': 0,
         'Podlasie': 0,
         'Tatry': 0
     };
 
-    results.forEach(result => {
-        summary[result.choice] += result.points;
-    });
+    onValue(resultsRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const result = childSnapshot.val();
+            summary[result.choice] += result.points;
+        });
 
-    let sortable = [];
-    for (let option in summary) {
-        sortable.push([option, summary[option]]);
-    }
+        let sortable = [];
+        for (let option in summary) {
+            sortable.push([option, summary[option]]);
+        }
 
-    sortable.sort((a, b) => b[1] - a[1]);
+        sortable.sort((a, b) => b[1] - a[1]);
 
-    sortable.forEach(item => {
-        const newRow = summaryTable.insertRow();
-        newRow.insertCell(0).textContent = item[0];
-        newRow.insertCell(1).textContent = item[1];
+        sortable.forEach(item => {
+            const newRow = summaryTable.insertRow();
+            newRow.insertCell(0).textContent = item[0];
+            newRow.insertCell(1).textContent = item[1];
+        });
     });
 }
 
 function clearVotes() {
-    localStorage.removeItem('results');
+    const resultsRef = ref(db, 'results');
+    set(resultsRef, null);
     location.reload(); // Odświeża stronę, aby usunięte zostały wyniki
 }
+
+// Upewnij się, że funkcje są dostępne globalnie
+window.updateOptions = updateOptions;
+window.submitVotes = submitVotes;
+window.clearVotes = clearVotes;
