@@ -1,27 +1,28 @@
 body {
-	font-family: Arial, sans-serif;
+	font-family: 'Magra', sans-serif;
 	margin: 0;
 }
 
+
 .background-image {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(./assets/Default_A_breathtaking_view_of_a_misty_valley_with_rolling_hil_0.jpg);
-    background-size: cover;
-    z-index: -1;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-image: url(./assets/Default_A_breathtaking_view_of_a_misty_valley_with_rolling_hil_0.jpg);
+	background-size: cover;
+	z-index: -1;
 }
 
 .container {
-	background-color: rgba(255, 255, 255, 0.8);
+	background-color: rgba(255, 255, 255, 0.6);
 	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-	width: 90%;
+	width: 60%;
 	max-width: 600px;
-	margin: 20px auto;
+	margin: 40px auto;
 	position: relative; /* Dodane */
 	z-index: 1; /* Dodane */
 	overflow-y: auto; /* Dodane */
@@ -37,11 +38,14 @@ h2 {
 
 form {
 	margin-bottom: 20px;
+
 }
 
 label {
 	display: block;
 	margin-top: 10px;
+    border-radius: 10px;
+    font-weight: 500;
 }
 
 select {
@@ -49,26 +53,42 @@ select {
 	padding: 5px;
 	margin-top: 5px;
 	box-sizing: border-box;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.604);
+    border-radius: 10px;
+    font-family: 'Magra', sans-serif;
 }
 
 button {
 	margin-top: 20px;
-	width: calc(50% - 5px); /* Zmodyfikowane */
+	width: calc(100% - 5px); /* Zmodyfikowane */
 	padding: 10px;
 	background-color: #5c8049;
 	color: #fff;
 	border: none;
-	border-radius: 5px;
+	border-radius: 10px;
 	cursor: pointer;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.604);
+    font-family: 'Magra', sans-serif;
+    transition: .5s ease;
+
 }
 
+
 button:hover {
-	background-color: #5c8049b8;
+    background-color: #5c8049b8;
+}
+
+.clearVotes {
+    background-color: tomato;
+}
+
+.clearVotes:hover {
+    background-color: rgba(255, 99, 71, 0.736)
 }
 
 .scrollable-table {
-    overflow-y: auto;
-    max-height: 300px; /* Przykładowa wartość dla wysokości tabeli */
+	overflow-y: auto;
+	max-height: 300px; /* Przykładowa wartość dla wysokości tabeli */
 }
 
 table {
@@ -91,68 +111,68 @@ th {
 /* Responsive Design */
 /* Małe urządzenia (s) */
 @media (max-width: 576px) {
-    /* Miejsce na reguły CSS dla małych urządzeń */
-    body {
-        font-size: 14px;
-    }
-    .container {
-        max-width: 100%;
-        padding: 10px;
-    }
-    select,
-    button {
-        padding: 8px;
-        font-size: 14px;
-    }
+	/* Miejsce na reguły CSS dla małych urządzeń */
+	body {
+		font-size: 14px;
+	}
+	.container {
+		max-width: 100%;
+		padding: 10px;
+	}
+	select,
+	button {
+		padding: 8px;
+		font-size: 14px;
+	}
 }
 
 /* Średnie urządzenia (m) */
 @media (min-width: 576px) and (max-width: 768px) {
-    /* Miejsce na reguły CSS dla średnich urządzeń */
-    body {
-        font-size: 16px;
-    }
-    .container {
-        max-width: 100%;
-        padding: 15px;
-    }
-    select,
-    button {
-        padding: 10px;
-        font-size: 16px;
-    }
+	/* Miejsce na reguły CSS dla średnich urządzeń */
+	body {
+		font-size: 16px;
+	}
+	.container {
+		max-width: 100%;
+		padding: 15px;
+	}
+	select,
+	button {
+		padding: 10px;
+		font-size: 16px;
+	}
 }
 
 /* Duże urządzenia (l) */
 @media (min-width: 768px) and (max-width: 992px) {
-    /* Miejsce na reguły CSS dla dużych urządzeń */
-    body {
-        font-size: 18px;
-    }
-    .container {
-        max-width: 90%;
-        padding: 20px;
-    }
-    select,
-    button {
-        padding: 12px;
-        font-size: 18px;
-    }
+	/* Miejsce na reguły CSS dla dużych urządzeń */
+	body {
+		font-size: 18px;
+	}
+	.container {
+		max-width: 90%;
+		padding: 20px;
+	}
+	select,
+	button {
+		padding: 12px;
+		font-size: 18px;
+	}
 }
 
 /* Bardzo duże urządzenia (xl) */
 @media (min-width: 992px) {
-    /* Miejsce na reguły CSS dla bardzo dużych urządzeń */
-    body {
-        font-size: 20px;
-    }
-    .container {
-        max-width: 1200px;
-        padding: 30px;
-    }
-    select,
-    button {
-        padding: 14px;
-        font-size: 20px;
-    }
+	/* Miejsce na reguły CSS dla bardzo dużych urządzeń */
+	body {
+		font-size: 20px;
+	}
+	.container {
+		max-width: 1200px;
+		padding: 30px;
+	}
+	select,
+	button {
+		padding: 14px;
+		font-size: 20px;
+	}
 }

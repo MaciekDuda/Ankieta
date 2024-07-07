@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ankieta</title>
+    <title>Next Wrong Turn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Krona+One&family=Magra:wght@400;700&family=Noto+Color+Emoji&family=Russo+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="background-image"></div>
     <div class="container">
-        <h1>Ankieta</h1>
+        <h1>⚠️Next Wrong Turn⚠️</h1>
         <table id="summaryTable">
             <tr>
                 <th>Opcja</th>
@@ -19,27 +22,27 @@
         <form id="surveyForm">
             <label for="firstChoice">Pierwszy wybór (3 pkt):</label>
             <select id="firstChoice" onchange="updateOptions('firstChoice', 'secondChoice', 'thirdChoice')">
-                <option value="Mazury">Mazury</option>
-                <option value="Podlasie">Podlasie</option>
-                <option value="Tatry">Tatry</option>
+                <option value="Mazury">Mazury⛵</option>
+                <option value="Podlasie">Podlasie🦬</option>
+                <option value="Tatry">Tatry⛰️</option>
             </select>
             <br>
             <label for="secondChoice">Drugi wybór (2 pkt):</label>
             <select id="secondChoice" onchange="updateOptions('secondChoice', 'firstChoice', 'thirdChoice')">
-                <option value="Mazury">Mazury</option>
-                <option value="Podlasie">Podlasie</option>
-                <option value="Tatry">Tatry</option>
+                <option value="Mazury">Mazury⛵</option>
+                <option value="Podlasie">Podlasie🦬</option>
+                <option value="Tatry">Tatry⛰️</option>
             </select>
             <br>
             <label for="thirdChoice">Trzeci wybór (1 pkt):</label>
             <select id="thirdChoice" onchange="updateOptions('thirdChoice', 'firstChoice', 'secondChoice')">
-                <option value="Mazury">Mazury</option>
-                <option value="Podlasie">Podlasie</option>
-                <option value="Tatry">Tatry</option>
+                <option value="Mazury">Mazury⛵</option>
+                <option value="Podlasie">Podlasie🦬</option>
+                <option value="Tatry">Tatry⛰️</option>
             </select>
             <br>
             <button type="button" onclick="submitVotes()">Zatwierdź głosy</button>
-            <button type="button" onclick="clearVotes()">Wyczyść głosy</button>
+            <button type="button" class="clearVotes" onclick="clearVotesWithPassword()">Wyczyść głosy</button>
         </form>
         <h2>Wyniki</h2>
         <div class="scrollable-table">

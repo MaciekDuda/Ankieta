@@ -35,7 +35,7 @@ window.onload = function() {
 function updateOptions(changedId, otherId1, otherId2) {
     const selectedValue = document.getElementById(changedId).value;
     
-    const options = ["Mazury", "Podlasie", "Tatry"];
+    const options = ["Mazury⛵", "Podlasie🦬", "Tatry⛰️"];
     
     const updateSelect = (selectId, excludedValues) => {
         const selectElement = document.getElementById(selectId);
@@ -127,9 +127,9 @@ function updateSummary() {
 
     const resultsRef = ref(db, 'results');
     const summary = {
-        'Mazury': 0,
-        'Podlasie': 0,
-        'Tatry': 0
+        'Mazury⛵': 0,
+        'Podlasie🦬': 0,
+        'Tatry⛰️': 0
     };
 
     onValue(resultsRef, (snapshot) => {
@@ -159,7 +159,18 @@ function clearVotes() {
     location.reload(); // Odświeża stronę, aby usunięte zostały wyniki
 }
 
+function clearVotesWithPassword() {
+    const password = prompt("Podaj hasło aby wyczyścić głosy:");
+    const correctPassword = "kopytko"; // Zastąp "twojeHaslo" rzeczywistym hasłem
+
+    if (password === correctPassword) {
+        clearVotes();
+    } else {
+        alert("Niepoprawne hasło!");
+    }
+}
+
 // Upewnij się, że funkcje są dostępne globalnie
 window.updateOptions = updateOptions;
 window.submitVotes = submitVotes;
-window.clearVotes = clearVotes;
+window.clearVotesWithPassword = clearVotesWithPassword;
